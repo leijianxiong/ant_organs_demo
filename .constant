@@ -1,0 +1,3 @@
+<?php
+define('INSTALL_DATE',1570690682);
+define('SERIALNUMBER','CKYnEX');

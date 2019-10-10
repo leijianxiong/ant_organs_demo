@@ -1,0 +1,42 @@
+<navbar parameter='{{parameter}}'></navbar>
+<form bindsubmit="formSubmit" report-submit='true'>
+  <view class='personal-data'>
+    <view class='list'>
+        <view class='item acea-row row-between-wrapper'>
+          <view>头像</view>
+          <view class='pictrue' bindtap='uploadpic'><image src='{{userInfo.avatar}}'></image></view>
+        </view>
+        <view class='item acea-row row-between-wrapper'>
+          <view>名字</view>
+          <view class='input'><input type='text' name='nickname' value='{{userInfo.nickname}}'></input></view>
+        </view>
+        <view class='item acea-row row-between-wrapper'>
+          <view>手机号码</view>
+          <navigator url="/pages/user_phone/index" hover-class="none" class="input" wx:if="{{!userInfo.phone}}">
+            点击绑定手机号<text class="iconfont icon-xiangyou"></text>
+          </navigator>
+          <view class='input acea-row row-between-wrapper' wx:else>
+            <input type='text' disabled='true' name='phone' value='{{userInfo.phone}}' class='id'></input>
+            <text class='iconfont icon-suozi'></text>
+          </view>
+        </view>
+        <view class='item acea-row row-between-wrapper'>
+          <view>ID号</view>
+          <view class='input acea-row row-between-wrapper'>
+            <input type='text' value='{{userInfo.uid}}' disabled='true' class='id'></input>
+            <text class='iconfont icon-suozi'></text>
+          </view> 
+        </view>
+        <view class="item acea-row row-between-wrapper" wx:if="{{userInfo.phone}}">
+          <view>密码</view>
+          <navigator url="/pages/user_pwd_edit/index" hover-class="none" class="input">
+            点击修改密码<text class="iconfont icon-xiangyou"></text>
+          </navigator>
+        </view>
+    </view>
+    <button class='modifyBnt bg-color' formType="submit">保存修改</button>
+    <view class="logOut cart-color acea-row row-center-wrapper" bindtap="outLogin">退出登录</view>
+  </view>
+</form>
+
+<authorize bind:onLoadFun="onLoadFun"></authorize>

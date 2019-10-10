@@ -1,0 +1,200 @@
+<navbar parameter='{{parameter}}'></navbar>
+<view>
+  <view class="register absolute">
+    <view class="shading">
+      <view class="pictrue acea-row row-center-wrapper">
+        <image src='{{logo_url}}'></image>
+      </view>
+    </view>
+    <view class="whiteBg" wx:if='{{formItem == 1}}'>
+      <view class="title acea-row row-center-wrapper">
+        <view
+          class="item {{current === index ? 'on' : ''}}"
+          wx:for='{{navList}}'
+          wx:key
+          bindtap="navTap"
+          data-index='{{index}}'
+        >
+          {{ item }}
+        </view>
+      </view>
+      <view class="list" wx:if='{{current == 0}}'>
+        <form>
+          <view class="item">
+            <view class="acea-row row-between-wrapper">
+              <image src='/images/phone_1.png'></image>
+              <input
+                type="number"
+                placeholder="输入手机号码"
+                bindblur='inputgetName'
+                data-name='account'
+                placeholder-class='placeholder'
+              />
+            </view>
+          </view>
+          <view class="item">
+            <view class="acea-row row-between-wrapper">
+              <image src='/images/code_2.png'></image>
+              <input
+                type="password"
+                placeholder="填写登录密码"
+                bindblur='inputgetName'
+                data-name='password'
+                placeholder-class='placeholder'
+              />
+            </view>
+          </view>
+        </form>
+        <view class="acea-row row-right row-middle">
+          <view class='forgetPwd' bindtap='forgetPwd'><span class="iconfont icon-wenti"></span>忘记密码</view>
+        </view>
+      </view>
+      <view class="list" wx:if='{{current == 1}}'>
+        <view class="item">
+          <view class="acea-row row-between-wrapper">
+            <image src='/images/phone_1.png'></image>
+            <input type="number" placeholder="输入手机号码" bindblur='inputgetName' data-name="phone" placeholder-class='placeholder'/>
+          </view>
+        </view>
+        <view class="item acea-row row-between-wrapper">
+          <view class="align-left acea-row row-middle">
+            <image src='/images/code_2.png'></image>
+            <input
+              type="number"
+              placeholder="填写验证码"
+              class="codeIput"
+              bindblur='inputgetName' 
+              data-name="captcha"
+              placeholder-class='placeholder'
+            />
+            <button
+              class="code {{disabled === true ? 'on' : ''}}"
+              disabled='{{disabled}}'
+              data-name='phone'
+              bindtap="code"
+            >
+              {{ timetext }}
+            </button>
+          </view>
+        </view>
+      </view>
+      <view class="logon" bindtap='login'>登录</view>
+      <view class="tip">
+        没有账号?
+        <span bindtap="register" class="font-color">立即注册</span>
+      </view>
+    </view>
+    <view class="whiteBg" wx:elif="{{formItem == 2}}">
+      <view class="title">注册账号</view>
+      <view class="list">
+        <view class="item acea-row row-between-wrapper">
+          <image src='/images/phone_1.png'></image>
+            <input type="number" placeholder="输入手机号码" bindblur='inputgetName' data-name="account" placeholder-class='placeholder'/>
+        </view>
+        <view class="item acea-row row-between-wrapper">
+          <view class="align-left acea-row row-middle">
+            <image src='/images/code_2.png'></image>
+            <input
+              type="number"
+              placeholder="填写验证码"
+              class="codeIput"
+              placeholder-class='placeholder'
+              bindblur='inputgetName' 
+              data-name="captcha"
+            />
+            <button
+              class="code {{disabled === true ? 'on' : ''}}"
+              disabled='{{disabled}}'
+              data-name='account'
+              bindtap="code"
+            >
+              {{ timetext }}
+            </button>
+          </view>
+        </view>
+        <view class="item acea-row row-between-wrapper">
+          <image src='/images/code_1.png'></image>
+            <input
+              type="password"
+              placeholder="填写您的登录密码"
+              placeholder-class='placeholder'
+              bindblur='inputgetName' 
+              data-name="password"
+            />
+        </view>
+        <view class="item acea-row row-between-wrapper">
+          <image src='/images/code_1.png'></image>
+            <input
+              type="password"
+              placeholder="填写您的确认密码"
+              placeholder-class='placeholder'
+              bindblur='inputgetName' 
+              data-name="qr_password"
+            />
+        </view>
+      </view>
+      <view class="logon" bindtap='PhoneRegister'>注册</view>
+      <view class="tip">
+        已有账号?
+        <span bindtap="logon" class="font-color">立即登录</span>
+      </view>
+    </view>
+    <view class="whiteBg" wx:else>
+      <view class="title">找回密码</view>
+      <view class="list">
+        <view class="item acea-row row-between-wrapper">
+          <image src='/images/phone_1.png'></image>
+            <input type="number" placeholder="输入手机号码" bindblur='inputgetName' data-name="account" placeholder-class='placeholder'/>
+        </view>
+        <view class="item acea-row row-between-wrapper">
+          <view class="align-left acea-row row-middle">
+            <image src='/images/code_2.png'></image>
+            <input
+              type="number"
+              placeholder="填写验证码"
+              class="codeIput"
+              placeholder-class='placeholder'
+              bindblur='inputgetName' 
+              data-name="captcha"
+            />
+            <button
+              class="code {{disabled === true ? 'on' : ''}}"
+              disabled='{{disabled}}'
+              data-name='account'
+              bindtap="code"
+            >
+              {{ timetext }}
+            </button>
+          </view>
+        </view>
+        <view class="item acea-row row-between-wrapper">
+          <image src='/images/code_1.png'></image>
+            <input
+              type="password"
+              placeholder="填写您的登录密码"
+              placeholder-class='placeholder'
+              bindblur='inputgetName' 
+              data-name="password"
+            />
+        </view>
+        <view class="item acea-row row-between-wrapper">
+          <image src='/images/code_1.png'></image>
+            <input
+              type="password"
+              placeholder="填写您的确认密码"
+              placeholder-class='placeholder'
+              bindblur='inputgetName' 
+              data-name="qr_password"
+            />
+        </view>
+      </view>
+      <view class="logon" bindtap='resetPwd'>确认</view>
+      <view class="tip">
+        <span bindtap="logon" class="font-color">立即登录</span>
+      </view>
+    </view>
+    <view class="bottom"></view>
+  </view>
+</view>
+
+<authorize bind:onLoadFun="onLoadFun"></authorize>
