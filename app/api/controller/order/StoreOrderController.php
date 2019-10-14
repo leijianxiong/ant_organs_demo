@@ -17,6 +17,7 @@ use crmeb\services\ExpressService;
 use crmeb\services\SystemConfigService;
 use crmeb\services\UtilService;
 use think\facade\Db;
+use think\facade\Env;
 
 /**
  * 订单类
@@ -117,6 +118,16 @@ class StoreOrderController
         }
         Db::startTrans();
         $priceGroup = StoreOrder::cacheKeyCreateOrder($request->uid(), $key, $addressId, $payType, (int)$useIntegral, $couponId, $mark, $combinationId, $pinkId, $seckill_id, $bargainId, true, 0);
+        //测试环境下支付金额固定为1分钱
+        if (Env::get("app_env") != "production") {
+            $priceGroup = json_decode('{
+                "total_price": "0.01",
+                "pay_price": 0.01,
+                "pay_postage": 0,
+                "coupon_price": 0,
+                "deduction_price": 0
+            }', true);
+        }
         if($priceGroup)
             return app('json')->status('NONE', 'ok', $priceGroup);
         else

@@ -6,3 +6,4 @@
 runtime/
 install.lock
 vendor/
+public/uploads
