@@ -23,6 +23,7 @@ use EasyWeChat\Message\Video;
 use EasyWeChat\Message\Voice;
 use EasyWeChat\Payment\Order;
 use EasyWeChat\Server\Guard;
+use think\facade\Env;
 use think\facade\Route as Url;
 use app\models\store\StoreOrder as StoreOrderWapModel;
 use app\models\user\UserRecharge;
@@ -350,7 +351,19 @@ class WechatService
      */
     public static function paymentPrepare($openid, $out_trade_no, $total_fee, $attach, $body, $detail='', $trade_type='JSAPI', $options = [])
     {
+        //测试环境下支付金额固定为1分钱
+        if (Env::get("app_env") != "production") {
+            $total_fee = 0.01;
+        }
         $order = self::paymentOrder($openid,$out_trade_no,$total_fee,$attach,$body,$detail,$trade_type,$options);
+        //支付必填参数
+        $order->setAttribute("scene_info", json_encode([
+            'h5_info' => [
+                'type' => 'wap',
+                'wap_url' => !empty($_SERVER['SERVER_NAME']) ? "http://{$_SERVER['SERVER_NAME']}" : 'http://www.abohui.com',
+                'wap_name' => '商品购买',
+            ],
+        ]));
         $result = self::paymentService()->prepare($order);
         if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
             try{
